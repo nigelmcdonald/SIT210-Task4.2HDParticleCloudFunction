@@ -1,0 +1,58 @@
+
+//GPIO pins setup
+int BluePin = D7;
+int GreenPin = D6;
+int RedPin = D5;
+
+
+void setup() {
+    pinMode(BluePin, OUTPUT); // set pins to output mode
+    pinMode(GreenPin, OUTPUT);
+    pinMode(RedPin, OUTPUT);
+    
+    Particle.function("TrafficLights", TrafficLights); // setup available function
+}
+
+//this function takes in a string and will perform and action
+// relating to the matching string
+int TrafficLights(String command)
+{
+    if(command == "blue")
+    {
+        digitalWrite(GreenPin, LOW); // turn other colours off
+        digitalWrite(RedPin, LOW);
+        digitalWrite(BluePin, HIGH); // enable chosen colour
+        return 1;
+    }
+    else if(command == "green")
+    {
+
+        digitalWrite(GreenPin, HIGH); // turn other colours off
+        digitalWrite(RedPin, LOW);
+        digitalWrite(BluePin, LOW); // enable chosen colour
+        return 2;
+    }
+    else if(command == "red")
+    {
+        digitalWrite(GreenPin, LOW); // turn other colours off
+        digitalWrite(RedPin, HIGH);
+        digitalWrite(BluePin, LOW); // enable chosen colour
+        return 3;
+    }
+    else if(command == "off")
+    {
+        digitalWrite(GreenPin, LOW); // turn other colours off
+        digitalWrite(RedPin, LOW);
+        digitalWrite(BluePin, LOW); // enable chosen colour
+        return 4;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+
+void loop() {
+}
+
